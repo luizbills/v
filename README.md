@@ -17,7 +17,8 @@ composer require luizbills/v
 
 Use the `v(value, ...filters)` function to filter your template values.
 
-```php+HTML
+```php
+?>
 Name: <?= v( 'luiz', 'upper' ) ?> <!-- Name: LUIZ -->
 ```
 
@@ -25,7 +26,7 @@ Name: <?= v( 'luiz', 'upper' ) ?> <!-- Name: LUIZ -->
 
 - By default, all values are escaped.
 
-```php+HTML
+```php
 <?php
 
 // escape by default
@@ -80,7 +81,7 @@ echo v( 'hello', 'length' ); // => length of hello is 5
 
 - Avoid conflicts with another applications/modules/plugins that are also using this library.
 
-```php+HTML
+```php
 <?php
 // The `v_register_filter` accepts an optional third argument called 'context'.
 // Note: the default context is 'root'.
@@ -111,7 +112,7 @@ echo v( 'foo', 'exclaim' ); // => foo!
 
 - Debug easily!
 
-```php+HTML
+```php
 <?php
 // use the `log` filter to log the current value with error_log function
 echo v( 'hello', 'upper', 'log' );
