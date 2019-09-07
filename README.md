@@ -5,7 +5,7 @@ Simple variable filter pipe
 ## Requirements
 
 - PHP 7+
-- `mbstring` extension
+- mbstring extension
 
 ## Install
 
