@@ -92,7 +92,7 @@ echo v( 1567973782, 'date("d/m/Y")' ); // => 08/09/2019
 echo v( 1567973782, 'date(d/m/Y)' ); // => 08/09/2019
 ```
 
-- Avoid conflicts with another applications/modules/plugins that are also using this library.
+- *Context setter* to avoid conflicts with another applications/modules/plugins that are also using this library.
 
 ```php
 <?php
