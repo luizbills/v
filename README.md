@@ -36,7 +36,7 @@ echo v( '<p>hello</p>' ); // => &lt;p&gt;hello&lt;/p&gt;
 echo v( '<p>hello</p>', 'escape' ); // => &lt;p&gt;hello&lt;/p&gt;
 
 // or you can strip all tags
-echo v( '<p>hello</p>', 'strip_tags' ); // => &lt;p&gt;hello&lt;/p&gt;
+echo v( '<p>hello</p>', 'strip_tags' ); // => hello
 
 // or only strip evil tags: <script>, <style>, <iframe> and <link>
 echo v( '<p>hello</p><script>evil_func();</script>', 'safe_html' ); // => &lt;p&gt;hello&lt;/p&gt;
