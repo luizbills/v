@@ -3,7 +3,7 @@
     "description": "Simple variable filter pipe",
     "type": "library",
 	"require": {
-        "php": ">=7.0.0"
+        "php": ">=7.1.0"
     },
     "license": "MIT",
     "authors": [
