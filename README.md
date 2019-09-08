@@ -17,7 +17,7 @@ composer require luizbills/v
 
 ## Usage
 
-Use the `v(value, ...filters)` function to filter your template values.
+Use the `v($value, ...$filters)` function to filter your template values.
 
 ```php
 ?>
@@ -88,7 +88,6 @@ echo v( 'hello', 'length' ); // => length of hello is 5
 // The `v_register_filter` accepts an optional third argument called 'context'.
 // Note: the default context is 'root'.
 
-// follow this example
 function exclaim_callback_v1 ( $value, $args ) {
 	return $value . '!';
 }
@@ -109,7 +108,22 @@ echo v( 'foo', 'exclaim' ); // => foo!!!!!
 v_reset_context(); // same as: v_set_context( 'root' );
 echo v( 'foo', 'exclaim' ); // => foo!
 
-// note: all built-in filters are available in any context
+// note: all built-in (or default) filters are available in any context
+```
+
+- Extendable. Use the `v_load_default_filters` to override or implement more **default filters** (filters that will be available in any context).
+
+```php
+<?php
+// this function accepts a function that returns an array
+v_load_default_filters(function () {
+	return [
+		// exclaim is now a default filter
+		'exclaim' => function ( $value, $args ) {
+			return $value . '!';
+		}
+	];
+});
 ```
 
 - Debug easily!
