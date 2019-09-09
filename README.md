@@ -53,10 +53,9 @@ echo v( '<p>hello</p><script>evil_func();</script>', 'safe_html', 'raw' ); // =>
 
 ```php
 <?php
-
 function repeat_callback ( $value, $args ) {
-	$n = (int) $args[0];
-	return str_repeat( $value, $n );
+	$times = (int) $args->get( 0 ); // get the first argument
+	return str_repeat( $value, $times );
 }
 v_register_filter( 'repeat', 'repeat_callback' );
 
@@ -74,8 +73,8 @@ echo v( 1567973782, 'date("Y")' ); // => 2019
 
 // custom `date` filter
 function my_date_callback ( $value, $args ) {
-	$format = $args[0];
-	return 'date: ' . date( $format, $value ); 
+	$format = $args->get( 0 );
+	return 'date: ' . date( $format, $value );
 }
 v_register_filter( 'date', 'my_date_callback' );
 

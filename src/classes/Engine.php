@@ -52,7 +52,7 @@ final class Engine {
 
 			$callback = $this->get_filter( $name );
 			$expression_arguments = count( $parts ) > 0 ? '(' . implode( '(', $parts ) : '';
-			$arguments = $this->parse_arguments( $expression_arguments );
+			$arguments = new Arguments( $expression_arguments );
 			$value = \call_user_func( $callback, $value, $arguments );
 		}
 
@@ -71,7 +71,7 @@ final class Engine {
 			return $this->native_filters[ $name ];
 		}
 
-		throw new \InvalidArgumentException( "Unexpected `$name` filter in `$ctx` context" );
+		throw new \InvalidArgumentException( __METHOD__ . ": unexpected `$name` filter in `$ctx` context" );
 	}
 
 	public function register_filter ( $name, $callback, $context = null ) {
@@ -97,10 +97,10 @@ final class Engine {
 	}
 
 	public function load ( $extension ) {
-		$filters = $extension();
+		$filters = is_callable( $extension ) ? $extension() : $extension;
 
 		if ( ! is_array( $filters ) ) {
-			throw new \InvalidArgumentException( 'The first argument should return a function that returns a array' );
+			throw new \InvalidArgumentException( __METHOD__ . ': argument 1 should be an Array or a Callable that return returns an Array' );
 		}
 
 		foreach ( $filters as $name => $callback ) {
@@ -124,44 +124,6 @@ final class Engine {
 		}
 
 		return $filters;
-	}
-
-	protected function parse_arguments ( $expression_arguments ) {
-		if ( '' != $expression_arguments ) {
-			if ( $expression_arguments[0] != '(' || $expression_arguments[-1] != ')' ) {
-				throw new \RuntimeException( "Invalid filter arguments expression" );
-			}
-
-			// get the value between '(' and ')'
-			$values = \preg_replace('/(^\(|\)$)/', '', $expression_arguments );
-
-			// remove breaklines
-			$values = \str_replace( [ "\n", "\r" ], '', $values );
-
-			// remove whitespaces after quotes
-			$values = \preg_replace( '/\s+,/', ',', $values );
-
-			// replace escaped quotes
-			$quote_placeholder = '{' . md5( time() ). '}';
-			$values = \preg_replace( '/\\\"/', $quote_placeholder, $values );
-
-			// check for unclosed quotes
-			\preg_match_all( '/"/', $values, $matches );
-			// the quantity of quotes should be an even number
-			if ( count( $matches[0] ) % 2 ) {
-				throw new \RuntimeException( "Unclosed string in filter arguments" );
-			}
-
-			// parse arguments as CSV line
-			$values = \str_getcsv( $values, ',', '"' );
-			// restore the escaped commas
-			foreach ( $values as $key => $value) {
-				$values[ $key ] =  \str_replace( $quote_placeholder, '"', $values[ $key ] );
-			}
-
-			return $values;
-		}
-		return [];
 	}
 
 	protected function get_context_filters ( $ctx ) {

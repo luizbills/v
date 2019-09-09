@@ -2,9 +2,9 @@
 
 // Return a default value if empty string is passed
 return function ( $value, $args ) {
-	$default = (string) _v_get( $args, 0 );
+	$default = (string) $args->get( 0 );
 	if ( '' == $default ) {
-		throw new InvalidArgumentException( 'Invalid argument for default filter' );
+		throw new \InvalidArgumentException( 'Argument 1 should not be a empty string' );
 	}
 	return '' !== $value ? $value : $default;
 };
