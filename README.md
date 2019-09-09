@@ -91,6 +91,8 @@ echo v( 1567973782, 'date("d/m/Y")' ); // => 08/09/2019
 
 // or like this (without double-quotes)
 echo v( 1567973782, 'date(d/m/Y)' ); // => 08/09/2019
+
+// note: double-quotes will be preserve all whitespaces in the argument
 ```
 
 - *Context setter* to avoid conflicts with another applications/modules/plugins that are also using this library.
