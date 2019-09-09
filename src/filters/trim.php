@@ -2,5 +2,5 @@
 
 // Trim whitespace from the beginning and end of a string
 return function ( $value, $args ) {
-	return trim( $value );
+	return \trim( $value );
 };
