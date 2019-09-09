@@ -69,16 +69,17 @@ echo v( 'Ha', 'repeat(5)', 'exclaim' ); // => HaHaHaHaHa!
 
 // you can also overwrite the built-in filters
 
-// default `length` filter
-echo v( 'hello', 'length' ); // => 5
+// default `date` filter
+echo v( 1567973782, 'date("Y")' ); // => 2019
 
-function my_length_callback ( $value, $args ) {
-	return 'length of ' . $value . ' is ' . strlen( $value );
+// custom `date` filter
+function my_date_callback ( $value, $args ) {
+	$format = $args[0];
+	return 'date: ' . date( $format, $value ); 
 }
-v_register_filter( 'length', 'my_length_callback' );
+v_register_filter( 'date', 'my_date_callback' );
 
-// custom length
-echo v( 'hello', 'length' ); // => length of hello is 5
+echo v( 1567973782, 'date("Y")' ); // => date: 2019
 ```
 
 - Filter arguments has optional string quoting.
