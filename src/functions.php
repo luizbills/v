@@ -21,14 +21,3 @@ function v_reset_context () {
 function v_load_default_filters ( $extension ) {
 	Engine::get_instance()->load( $extension );
 }
-
-// private helper
-function _v_get ( $array, $key, $default = null ) {
-	return isset( $array[ $key ] ) ? $array[ $key ] : $default;
-}
-
-function _v_strip_evil_tags ( $html ) {
-	$html = preg_replace( '/<(script|style)[^>]*?>.*?<\/\\1>/si', '', $html );
-	$html = preg_replace( '/<(iframe|link)[^>]*?>/si', '', $html );
-	return $html;
-}
