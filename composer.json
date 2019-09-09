@@ -1,26 +1,26 @@
 {
-    "name": "luizbills/v",
-    "description": "Simple variable filter pipe",
-    "type": "library",
+	"name": "luizbills/v",
+	"description": "Simple variable filter pipe",
+	"type": "library",
 	"require": {
-        "php": "^7.1",
+		"php": "^7.1",
 		"ext-mbstring": "*"
-    },
-    "license": "MIT",
-    "authors": [
-        {
-            "name": "Luiz Bills",
-            "email": "luizpbills@gmail.com"
-        }
-    ],
-    "autoload": {
-        "files": [
-            "src/functions.php"
-        ],
-        "psr-4": {
-            "luizbills\\v\\": [
-                "src/classes/"
-            ]
-        }
-    }
+	},
+	"license": "MIT",
+	"authors": [
+		{
+			"name": "Luiz Bills",
+			"email": "luizpbills@gmail.com"
+		}
+	],
+	"autoload": {
+		"files": [
+			"src/functions.php"
+		],
+		"psr-4": {
+			"luizbills\\v\\": [
+				"src/classes/"
+			]
+		}
+	}
 }
