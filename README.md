@@ -130,14 +130,12 @@ echo v( 'foo', 'exclaim' ); // => foo!
 ```php
 <?php
 // this function accepts an Array, where each key is a filter
-v_load_extension(function () {
-	return [
-		// exclaim is now a default filter
-		'exclaim' => function ( $value, $args ) {
-			return $value . '!';
-		}
-	];
-});
+v_load_extension( [
+	// `exclaim` is now a default filter
+	'exclaim' => function ( $value, $args ) {
+		return $value . '!';
+	}
+] );
 ```
 
 - Debug easily!
