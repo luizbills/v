@@ -48,9 +48,9 @@ final class Engine {
 			$name = \array_shift( $parts );
 
 			// skip the `raw` filter
-			if ( 'raw' === $name ) continue;
+			if ( 'raw' == $name ) continue;
 
-			$callback = $this->get_filter( $name );
+			$callback = $this->get_filter_callback( $name );
 			$expression_arguments = count( $parts ) > 0 ? '(' . implode( '(', $parts ) : '';
 			$arguments = new Arguments( $expression_arguments );
 			$value = \call_user_func( $callback, $value, $arguments );
@@ -59,7 +59,7 @@ final class Engine {
 		return $value;
 	}
 
-	public function get_filter ( string $name ) : callable {
+	public function get_filter_callback ( string $name ) : callable {
 		$result = null;
 		$ctx = $this->current_context;
 		$filters = $this->get_context_filters( $ctx );
