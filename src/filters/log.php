@@ -3,16 +3,23 @@
 // logs the $value (only in debug mode)
 return function ( $value, $args ) {
 	$id = $args->get( 0, null );
+	$str_value;
+	$type = \gettype( $value );
 
-	switch ( \gettype( $value ) ) {
-		case 'boolean':
-			$value = $value ? true : false;
+	switch ( $type ) {
+		case 'NULL':
+			$str_value = 'null';
 			break;
-
+		case 'boolean':
+			$str_value = $value ? 'true' : 'false';
+			break;
+		case 'string':
+			$str_value = "\"$value\"";
+			break;
 		default:
-			$value = print_r( $value, true );
+			$str_value = print_r( $value, true );
 	}
-	\error_log( '[v log filter output' . ( null !== $id ? " @ $id" : '' ) . "] $value" );
+	\error_log( '[v log filter output' . ( null !== $id ? " @ $id" : '' ) . "] ($type) $str_value" );
 
 	return $value;
 };
