@@ -13,21 +13,18 @@ final class Engine {
 
 	protected function __construct () {
 		// load default filters
-		$this->load( [ $this, 'get_default_filters' ] );
+		$this->load_extension( $this->get_default_filters() );
 		$this->reset_context();
 	}
 
-	public static function get_instance () {
+	public static function get_instance () : self {
 		if ( null === self::$instance ) {
 			self::$instance = new self();
 		}
 		return self::$instance;
 	}
 
-	public function run_filters ( $value, $filters = [] ) {
-		// ensure $value is a string
-		$value = (string) $value;
-
+	public function run_filters ( $value, ...$filters ) {
 		if ( \count( $filters ) > 0 ) {
 			// trim all filter expressions
 			$filters = \array_filter( $filters, 'trim' );
@@ -48,9 +45,9 @@ final class Engine {
 			$name = \array_shift( $parts );
 
 			// skip the `raw` filter
-			if ( 'raw' === $name ) continue;
+			if ( 'raw' == $name ) continue;
 
-			$callback = $this->get_filter( $name );
+			$callback = $this->get_filter_callback( $name );
 			$expression_arguments = count( $parts ) > 0 ? '(' . implode( '(', $parts ) : '';
 			$arguments = new Arguments( $expression_arguments );
 			$value = \call_user_func( $callback, $value, $arguments );
@@ -59,7 +56,7 @@ final class Engine {
 		return $value;
 	}
 
-	public function get_filter ( $name ) {
+	public function get_filter_callback ( string $name ) : callable {
 		$result = null;
 		$ctx = $this->current_context;
 		$filters = $this->get_context_filters( $ctx );
@@ -74,10 +71,10 @@ final class Engine {
 		throw new \InvalidArgumentException( __METHOD__ . ": unexpected `$name` filter in `$ctx` context" );
 	}
 
-	public function register_filter ( $name, $callback, $context = null ) {
+	public function register_filter ( string $name, callable $callback, string $context = '' ) {
 		$name = \trim( $name );
 
-		if ( null === $context ) {
+		if ( '' === $context ) {
 			$context = self::ROOT_CONTEXT;
 		}
 
@@ -88,27 +85,21 @@ final class Engine {
 		$this->custom_filters[ $context ][ $name ] = $callback;
 	}
 
-	public function set_context ( $context ) {
+	public function set_context ( string $context ) {
 		$this->current_context = $context;
 	}
 
 	public function reset_context () {
-		$this->current_context = 'root';
+		$this->current_context = self::ROOT_CONTEXT;
 	}
 
-	public function load ( $extension ) {
-		$filters = is_callable( $extension ) ? $extension() : $extension;
-
-		if ( ! is_array( $filters ) ) {
-			throw new \InvalidArgumentException( __METHOD__ . ': argument 1 should be an Array or a Callable that return returns an Array' );
-		}
-
+	public function load_extension ( array $filters ) {
 		foreach ( $filters as $name => $callback ) {
 			$this->native_filters[ $name ] = $callback;
 		}
 	}
 
-	protected function get_default_filters () {
+	protected function get_default_filters () : array {
 		$dir = __DIR__ . '/../filters/';
 		$files = \scandir( $dir );
 		$engine = $this;
@@ -126,7 +117,7 @@ final class Engine {
 		return $filters;
 	}
 
-	protected function get_context_filters ( $ctx ) {
+	protected function get_context_filters ( string $ctx ) {
 		return isset( $this->custom_filters[ $ctx ] ) ? $this->custom_filters[ $ctx ] : null;
 	}
 }

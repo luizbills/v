@@ -2,5 +2,5 @@
 
 // Remove <script> and <style> tags
 return function ( $value, $args ) {
-	return \strip_tags( \v( $value, 'raw', 'safe_html' ) );
+	return \strip_tags( \v( (string) $value, 'raw', 'safe_html' ) );
 };

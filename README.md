@@ -125,19 +125,17 @@ echo v( 'foo', 'exclaim' ); // => foo!
 // note: all built-in (or default) filters are available in any context
 ```
 
-- Extendable. Use the `v_load_default_filters` to override or implement more **default filters** (filters that will be available in any context).
+- Extendable. Use the `v_load_extension` to override or implement more **default filters** (filters that will be available in any context).
 
 ```php
 <?php
-// this function accepts a function that returns an array
-v_load_default_filters(function () {
-	return [
-		// exclaim is now a default filter
-		'exclaim' => function ( $value, $args ) {
-			return $value . '!';
-		}
-	];
-});
+// this function accepts an Array, where each key is a filter
+v_load_extension( [
+	// `exclaim` is now a default filter
+	'exclaim' => function ( $value, $args ) {
+		return $value . '!';
+	}
+] );
 ```
 
 - Debug easily!

@@ -8,5 +8,5 @@ return function ( $value, $args ) {
 		$words = \explode( ' ', $value );
 		return \implode( ' ', \array_map( 'ucfirst', $words ) );
 	}
-	return \ucfirst( $value );
+	return \ucfirst( (string) $value );
 };

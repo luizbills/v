@@ -2,5 +2,5 @@
 
 // Escape $value
 return function ( $value, $args ) {
-	return \htmlspecialchars( $value, ENT_QUOTES );
+	return \htmlspecialchars( (string) $value, \ENT_QUOTES );
 };

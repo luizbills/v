@@ -5,22 +5,22 @@ namespace luizbills\v;
 final class Arguments {
 	protected $arguments;
 
-	public function __construct ( $expression ) {
+	public function __construct ( string $expression ) {
 		$this->arguments = $this->parse_arguments( $expression );
 	}
 
-	public function get ( $index, $default = null ) {
+	public function get ( int $index, $default = null ) {
 		if ( isset( $this->arguments[ $index ] ) ) {
 			return $this->arguments[ $index ];
 		}
 		return $default;
 	}
 
-	public function get_all () {
+	public function get_all () : array {
 		return $this->arguments;
 	}
 
-	protected function parse_arguments ( $expression ) {
+	protected function parse_arguments ( string $expression ) : array {
 		if ( '' != $expression ) {
 			if ( $expression[0] != '(' || $expression[-1] != ')' ) {
 				throw new \RuntimeException( __METHOD__ . ": invalid filter arguments syntax" );
@@ -56,6 +56,7 @@ final class Arguments {
 
 			return $values;
 		}
+
 		return [];
 	}
 }
