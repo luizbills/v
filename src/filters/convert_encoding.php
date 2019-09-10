@@ -5,5 +5,5 @@
 return function ( $value, $args ) {
 	$to = $args->get( 0 );
 	$from = $args->get( 1, 'UTF-8' );
-	return \mb_convert_encoding( $value, $to, $from );
+	return \mb_convert_encoding( (string) $value, $to, $from );
 };

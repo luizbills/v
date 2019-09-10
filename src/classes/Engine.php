@@ -25,9 +25,6 @@ final class Engine {
 	}
 
 	public function run_filters ( $value, ...$filters ) {
-		// ensure $value is a string
-		$value = (string) $value;
-
 		if ( \count( $filters ) > 0 ) {
 			// trim all filter expressions
 			$filters = \array_filter( $filters, 'trim' );

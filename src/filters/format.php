@@ -4,5 +4,5 @@
 // see: https://www.php.net/manual/en/function.sprintf.php
 return function ( $value, $args ) {
 	$data = $args->get_all();
-	return \sprintf( $value, ...$data );
+	return \sprintf( (string) $value, ...$data );
 };
