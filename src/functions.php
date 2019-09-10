@@ -18,6 +18,6 @@ function v_reset_context () {
 	Engine::get_instance()->reset_context();
 }
 
-function v_load_default_filters ( array $extension ) {
+function v_load_extension ( array $extension ) {
 	Engine::get_instance()->load_extension( $extension );
 }
