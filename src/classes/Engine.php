@@ -13,7 +13,7 @@ final class Engine {
 
 	protected function __construct () {
 		// load default filters
-		$this->load( $this->get_default_filters() );
+		$this->load_extension( $this->get_default_filters() );
 		$this->reset_context();
 	}
 
@@ -96,11 +96,7 @@ final class Engine {
 		$this->current_context = 'root';
 	}
 
-	public function load ( array $filters ) {
-		if ( ! is_array( $filters ) ) {
-			throw new \InvalidArgumentException( __METHOD__ . ': argument 1 should be an Array or a Callable that return returns an Array' );
-		}
-
+	public function load_extension ( array $filters ) {
 		foreach ( $filters as $name => $callback ) {
 			$this->native_filters[ $name ] = $callback;
 		}

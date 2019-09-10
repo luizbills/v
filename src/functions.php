@@ -19,5 +19,5 @@ function v_reset_context () {
 }
 
 function v_load_default_filters ( array $extension ) {
-	Engine::get_instance()->load( $extension );
+	Engine::get_instance()->load_extension( $extension );
 }
