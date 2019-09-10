@@ -93,7 +93,7 @@ final class Engine {
 	}
 
 	public function reset_context () {
-		$this->current_context = 'root';
+		$this->current_context = self::ROOT_CONTEXT;
 	}
 
 	public function load_extension ( array $filters ) {
