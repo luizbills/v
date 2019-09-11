@@ -12,7 +12,7 @@ Simple variable filter pipe
 ## Install
 
 ```
-composer require luizbills/v
+composer require luizbills/v --prefer-dist
 ```
 
 ## Usage
