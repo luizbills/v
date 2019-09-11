@@ -19,7 +19,9 @@ return function ( $value, $args ) {
 		default:
 			$str_value = print_r( $value, true );
 	}
-	\error_log( '[v log filter output' . ( null !== $id ? " @ $id" : '' ) . "] ($type) $str_value" );
+
+	$at = ( null !== $id ? " @ $id" : '' );
+	\error_log( "[v log$at] ($type) $str_value" );
 
 	return $value;
 };
