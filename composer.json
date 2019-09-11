@@ -6,6 +6,12 @@
 		"php": "^7.1",
 		"ext-mbstring": "*"
 	},
+	"require-dev": {
+		"kahlan/kahlan": "^4.6"
+	},
+	"scripts": {
+		"test": "kahlan --reporter=verbose"
+	},
 	"license": "MIT",
 	"authors": [
 		{
