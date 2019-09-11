@@ -148,11 +148,11 @@ v_load_extension( [
 <?php
 // use the `log` filter to log the current value with error_log function
 echo v( 'hello', 'upper', 'log' );
-// => logs: [v log filter output] HELLO
+// => logs: [v log filter output] (string) "HELLO"
 
 // You can also pass a ID to log filter, this help you identify outputs
 echo v( 'hello', 'log(before upper)', 'upper' );
-// => logs: [v log filter output] hello (ID: before upper)
+// => logs: [v log filter output @ before upper] (string) "hello"
 
 ```
 
