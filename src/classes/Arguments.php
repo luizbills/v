@@ -36,7 +36,7 @@ final class Arguments {
 			$values = \preg_replace( '/(\s+,(\s+)?)/', ',', $values );
 
 			// replace escaped quotes
-			$quote_placeholder = '{' . \md5( \time() ). '}';
+			$quote_placeholder = '{' . \md5( \time() + \mt_rand() ). '}';
 			$values = \preg_replace( '/\\\"/', $quote_placeholder, $values );
 
 			// check for unclosed quotes
@@ -51,7 +51,7 @@ final class Arguments {
 
 			// restore the escaped commas
 			foreach ( $values as $key => $value) {
-				$values[ $key ] =  \str_replace( $quote_placeholder, '"', $values[ $key ] );
+				$values[ $key ] = \str_replace( $quote_placeholder, '"', $values[ $key ] );
 			}
 
 			return $values;
