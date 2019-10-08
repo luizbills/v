@@ -6,5 +6,5 @@ return function ( $value, $args ) {
 	if ( '' == $default ) {
 		throw new \InvalidArgumentException( 'Argument 1 should not be a empty string' );
 	}
-	return '' !== $value ? $value : $default;
+	return null !== $value && '' !== $value ? $value : $default;
 };
