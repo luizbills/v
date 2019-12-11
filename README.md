@@ -6,7 +6,7 @@
 [![Build Status](https://travis-ci.org/luizbills/v.svg?branch=master)](https://travis-ci.org/luizbills/v)
 [![License](https://poser.pugx.org/luizbills/v/license)](https://packagist.org/packages/luizbills/v)
 
-Simple variable filter pipe
+Simple variable filter and formatter pipe
 
 ## Requirements
 
