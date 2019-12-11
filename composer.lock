@@ -9,23 +9,23 @@
     "packages-dev": [
         {
             "name": "kahlan/kahlan",
-            "version": "4.6.3",
+            "version": "4.6.4",
             "source": {
                 "type": "git",
                 "url": "https://github.com/kahlan/kahlan.git",
-                "reference": "b0341a59cefd2697f6e104bbcf045ee36a189ea2"
+                "reference": "c3fc05f42adc843b790fb7c788fd60e212d3ceb0"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/kahlan/kahlan/zipball/b0341a59cefd2697f6e104bbcf045ee36a189ea2",
-                "reference": "b0341a59cefd2697f6e104bbcf045ee36a189ea2",
+                "url": "https://api.github.com/repos/kahlan/kahlan/zipball/c3fc05f42adc843b790fb7c788fd60e212d3ceb0",
+                "reference": "c3fc05f42adc843b790fb7c788fd60e212d3ceb0",
                 "shasum": ""
             },
             "require": {
                 "php": ">=5.5"
             },
             "require-dev": {
-                "squizlabs/php_codesniffer": "^3.3"
+                "squizlabs/php_codesniffer": "^3.4"
             },
             "bin": [
                 "bin/kahlan"
@@ -59,7 +59,7 @@
                 "testing",
                 "unit test"
             ],
-            "time": "2019-04-18T14:16:23+00:00"
+            "time": "2019-09-19T12:52:53+00:00"
         }
     ],
     "aliases": [],
