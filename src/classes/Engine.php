@@ -25,14 +25,28 @@ final class Engine {
 	}
 
 	public function run_filters ( $value, ...$filters ) {
-		if ( \count( $filters ) > 0 ) {
-			// trim all filter expressions
-			$filters = \array_filter( $filters, 'trim' );
+		$result = $value;
 
+		if ( \count( $filters ) > 0 ) {
 			// by default, any html in $value will be escaped
-			// but the `raw` filter prevent this
-			$has_raw = \preg_grep( '/(^raw$)|(^raw\()/', $filters );
-			$has_escape = \preg_grep( '/(^escape$)|(^escape\()/', $filters );
+			// but the `raw` filter prevent this behavior
+
+			$has_raw = false;
+			foreach ( $filters as $expression ) {
+				if ( $has_raw ) break;
+				if ( ! $this->is_function( $expression ) ) {
+					$has_raw = 1 === preg_match( '/(^raw$)|(^raw\()/', $expression );
+				}
+			}
+
+			$has_escape = false;
+			foreach ( $filters as $expression ) {
+				if ( $has_escape ) break;
+				if ( ! $this->is_function( $expression ) ) {
+					$has_escape = 1 === preg_match( '/(^escape$)|(^escape\()/', $expression );
+				}
+			}
+
 			if ( ! $has_raw && ! $has_escape ) {
 				$filters = \array_merge( $filters, [ 'escape' ] );
 			}
@@ -40,20 +54,25 @@ final class Engine {
 			$filters = [ 'escape' ];
 		}
 
-		foreach ( $filters as $full_expression ) {
-			$parts = \explode( '(', trim( $full_expression ) );
-			$name = \array_shift( $parts );
+		foreach ( $filters as $expression ) {
+			if ( $this->is_function( $expression ) ) {
+				$callback = is_string( $expression ) && '@' === substr( $expression, 0, 1 ) ? substr( $expression, 1 ) : $expression;
+				$result = \call_user_func( $callback, $result );
+			} else {
+				$parts = \explode( '(', trim( $expression ) );
+				$name = \array_shift( $parts );
 
-			// skip the `raw` filter
-			if ( 'raw' == $name ) continue;
+				// skip the `raw` filter
+				if ( 'raw' == $name ) continue;
 
-			$callback = $this->get_filter_callback( $name );
-			$expression_arguments = count( $parts ) > 0 ? '(' . implode( '(', $parts ) : '';
-			$arguments = new Arguments( $expression_arguments );
-			$value = \call_user_func( $callback, $value, $arguments );
+				$callback = $this->get_filter_callback( $name );
+				$expression_arguments = count( $parts ) > 0 ? '(' . implode( '(', $parts ) : '';
+				$arguments = new Arguments( $expression_arguments );
+				$result = \call_user_func( $callback, $result, $arguments );
+			}
 		}
 
-		return $value;
+		return $result;
 	}
 
 	public function get_filter_callback ( string $name ) : callable {
@@ -109,7 +128,7 @@ final class Engine {
 		unset( $files[ array_search( '..', $files, true ) ] );
 
 		foreach ( $files as $file ) {
-			$name = str_replace( '.php', '', $file );
+			$name = \str_replace( '.php', '', $file );
 			$callback = include $dir . $file;
 			$filters[ $name ] = $callback;
 		}
@@ -119,5 +138,12 @@ final class Engine {
 
 	protected function get_context_filters ( string $ctx ) {
 		return isset( $this->custom_filters[ $ctx ] ) ? $this->custom_filters[ $ctx ] : null;
+	}
+
+	protected function is_function ( $func ) {
+		if ( is_array( $func ) && is_callable( $func ) ) return true;
+		if ( is_object( $func ) && $func instanceof \Closure ) return true;
+		if ( is_string( $func ) && '@' === substr( $func, 0, 1 ) && function_exists( substr( $func, 1 ) ) ) return true;
+		return false;
 	}
 }

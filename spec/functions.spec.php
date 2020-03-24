@@ -25,6 +25,32 @@ describe( 'functions', function() {
 			$expected = '<P>';
 			expect( $current )->toBe( $expected );
 		} );
+
+		it( 'shoulds accept inline functions', function() {
+			$function = function ( $val ) {
+				return $val . '!';
+			};
+			$current = v( 'ok', $function );
+			$expected = 'ok!';
+			expect( $current )->toBe( $expected );
+		} );
+
+		it( 'shoulds accept object method', function() {
+			class _Test {
+				public static function filter ( $value ) {
+					return $value . '!';
+				}
+			}
+			$current = v( 'ok', [ '_Test', 'filter' ] );
+			$expected = 'ok!';
+			expect( $current )->toBe( $expected );
+		} );
+
+		it( 'shoulds accept global functions prepending a @', function() {
+			$current = v( 'ok', '@strtoupper' );
+			$expected = 'OK';
+			expect( $current )->toBe( $expected );
+		} );
 	} );
 
 	describe( 'v_register_filter', function () {
