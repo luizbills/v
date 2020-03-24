@@ -85,6 +85,22 @@ v_register_filter( 'date', 'my_date_callback' );
 echo v( 1567973782, 'date("Y")' ); // => date: 2019
 ```
 
+- Or just use any function
+
+```php
+// inline function
+$upper = function ( $value ) {
+	return strtoupper( $value );
+}
+echo v( 'ok', $upper ); // => OK
+
+// or global functions (add an @ before)
+echo v( 'ok', '@strtoupper' ); // => OK
+
+// or methods
+echo v( 'ok', [ 'MyClass', 'my_method' ] );
+```
+
 - Filter arguments has optional string quoting.
 
 ```php
