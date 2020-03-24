@@ -51,6 +51,20 @@ echo v( '<p>hello</p><script>evil_func();</script>', 'safe_html' ); // => &lt;p&
 echo v( '<p>hello</p><script>evil_func();</script>', 'safe_html', 'raw' ); // => <p>hello</p>
 ```
 
+- The filter arguments has optional string quoting.
+
+```php
+<?php
+// you can do like this
+echo v( 1567973782, 'date("d/m/Y")' ); // => 08/09/2019
+
+// or like this (without double-quotes)
+echo v( 1567973782, 'date(d/m/Y)' ); // => 08/09/2019
+
+// Note: always use double-quotes if you need whitespaces in your argument,
+// otherwise they will be deleted (with `trim`).
+```
+
 - Several [built-in filters](src/filters).
 
 - Create your own filters!
@@ -99,20 +113,6 @@ echo v( 'ok', '@strtoupper' ); // => OK
 
 // or methods
 echo v( 'ok', [ 'MyClass', 'my_method' ] );
-```
-
-- Filter arguments has optional string quoting.
-
-```php
-<?php
-// you can do like this
-echo v( 1567973782, 'date("d/m/Y")' ); // => 08/09/2019
-
-// or like this (without double-quotes)
-echo v( 1567973782, 'date(d/m/Y)' ); // => 08/09/2019
-
-// Note: always use double-quotes if you need whitespaces in your argument,
-// otherwise they will be deleted (with `trim`).
 ```
 
 - *Context setter* to avoid conflicts with another applications/modules/plugins that are also using this library.
