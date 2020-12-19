@@ -7,10 +7,12 @@
 		"ext-mbstring": "*"
 	},
 	"require-dev": {
-		"kahlan/kahlan": "^4.6"
+		"kahlan/kahlan": "^4.6",
+		"phpstan/phpstan": "^0.12.63"
 	},
 	"scripts": {
-		"test": "kahlan --reporter=verbose"
+		"test": "kahlan --reporter=verbose",
+		"analyse": "phpstan analyse"
 	},
 	"license": "MIT",
 	"authors": [
