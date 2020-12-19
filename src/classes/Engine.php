@@ -121,7 +121,6 @@ final class Engine {
 	protected function get_default_filters () : array {
 		$dir = __DIR__ . '/../filters/';
 		$files = \scandir( $dir );
-		$engine = $this;
 		$filters = [];
 
 		unset( $files[ array_search( '.', $files, true ) ] );

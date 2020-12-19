@@ -37,7 +37,7 @@ describe( 'functions', function() {
 
 		it( 'shoulds accept object method', function() {
 			class _Test {
-				public static function filter ( $value ) {
+				public static function filter ( $value ) : string {
 					return $value . '!';
 				}
 			}

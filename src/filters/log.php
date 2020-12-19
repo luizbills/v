@@ -3,7 +3,7 @@
 // logs the $value (only in debug mode)
 return function ( $value, $args ) {
 	$id = $args->get( 0, null );
-	$str_value;
+	$str_value = null;
 	$type = \gettype( $value );
 
 	switch ( $type ) {
