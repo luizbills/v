@@ -48,7 +48,7 @@ echo v( '<p>hello</p>', 'strip_tags' ); // => hello
 echo v( '<p>hello</p><script>evil_func();</script>', 'safe_html' ); // => &lt;p&gt;hello&lt;/p&gt;
 
 // and to not escape, use the `raw` filter
-echo v( '<p>hello</p><script>evil_func();</script>', 'safe_html', 'raw' ); // => <p>hello</p>
+echo v( '<p>hello</p>', 'raw' ); // => <p>hello</p>
 ```
 
 - The filter arguments has optional string quoting.
