@@ -44,10 +44,10 @@ echo v( '<p>hello</p>', 'escape' ); // => &lt;p&gt;hello&lt;/p&gt;
 // or you can strip all tags
 echo v( '<p>hello</p>', 'strip_tags' ); // => hello
 
-// or only strip evil tags: <script>, <style>, <iframe> and <link>
-echo v( '<p>hello</p><script>evil_func();</script>', 'safe_html' ); // => &lt;p&gt;hello&lt;/p&gt;
+// or strip only "evil" tags: <script>, <style>, <iframe> and <link>
+echo v( '<p>hello</p><script>evilFunc();</script>', 'safe_html' ); // => &lt;p&gt;hello&lt;/p&gt;
 
-// and to not escape, use the `raw` filter
+// and to disable autoescaping, use the `raw` filter
 echo v( '<p>hello</p>', 'raw' ); // => <p>hello</p>
 ```
 
