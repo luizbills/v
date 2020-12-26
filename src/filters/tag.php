@@ -13,5 +13,5 @@ return function ( $value, $args ) {
 	$id = filter_var( $id, FILTER_SANITIZE_STRING );
 	$class = filter_var( $class, FILTER_SANITIZE_STRING );
 
-	return "<$tag id='$id' class='$class'>$value</$tag>";
+	return "<$tag class='$class' id='$id'>$value</$tag>";
 };
