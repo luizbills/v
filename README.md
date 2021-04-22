@@ -24,8 +24,7 @@ composer require luizbills/v --prefer-dist
 Use the `v($value, ...$filters)` function to filter your template values.
 
 ```php
-?>
-Name: <?= v( 'luiz', 'upper' ) ?> <!-- Name: LUIZ -->
+<?= 'Name: ' . v( 'luiz', 'upper' ) ?> <!-- Name: LUIZ -->
 ```
 
 ## Features
