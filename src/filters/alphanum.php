@@ -1,5 +1,5 @@
 <?php
 
 return function ( $value, $args ) {
-	return preg_replace( '/[^a-z0-9]/i', '', $value );
+	return preg_replace( "/[^0-9\pL]/u", '', $value );
 };

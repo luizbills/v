@@ -2,5 +2,5 @@
 
 // Remove all non-alphabetic characters
 return function ( $value, $args ) {
-	return preg_replace( '/[^a-z]/i', '', $value );
+	return preg_replace( "/[^\pL]/u", '', $value );
 };
